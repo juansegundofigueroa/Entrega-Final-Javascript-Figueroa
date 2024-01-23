@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: cadetblue;
+}
+.photo{
+    width: 100%;
+    height: 500px;
+}
+head h1{
+    background-color:black;
+    color: blue;
+}
