@@ -1,86 +1,142 @@
-let edad = Number(prompt("ingrese su edad"));
-if(edad >= 16){
-//en este apartado esta la seccion de datos del cliente
-    alert("Sos mayor y podes ingresar en la web");
-    let cliente = prompt("Como es tu nombre y apellido?");
-    alert(`Bienvenido ${cliente}`);
-    function orden(){
-    alert(`Orden tomada para ${cliente}`);
+//productos
+class PRODUCTO{
+    constructor(id,nombre,descripcion,precio,imagen){
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.imagen = imagen;
+    }
 }
 
-// en este apartado se ven lo que incluye el menu
-    let numero = Number(prompt("Bienvenido al menu,para ver las opciones presiona el numero correspondiente: 1:clasico 2:vegetariano 3:premium 4:seguir por el menu"));
-    while(numero != 4){
-        switch (numero){
-            case 1:
-                alert("incluye: comida + bebida + postre");
-                break;
-            case 2:
-                alert("incluye: comida vegetariana + bebida + postre vegano");
-                break;
-            case 3:
-                alert("incluye: entrada + comida + bebida + postre");
-                break;
-            default:
-                alert("opcion incorrecta");
-                break;
-        }
-        numero = Number(prompt ("Bienvenido al menu,para ver las opciones presiona el numero correspondiente: 1:clasico 2:vegetariano 3:premium 4:seguir por el menu"));
+const PRODUCTOS = [
+    new PRODUCTO(1,`Cupcake`,`masa de chocolate o vainilla con crema en la parte superior`,625,`./Productos/cupcakes.jpg`),
+    new PRODUCTO(2,`Tarta de moras`,`masa de chocolate glaseada con moras en la parte superior`,1275,`./Productos/Tarta de moras.jpg`),
+    new PRODUCTO(3,`Rosquillas`,`masa de vainilla frita glaseada con distintos sabores`,120,`./Productos/roscas.jpg`),
+    new PRODUCTO(4,`Roll de Canela`,`masa con sabor a canela,glaseada y decorada con distintos toppings`,250,`./Productos/rollos de canela.jpg`),
+    new PRODUCTO(5,`Pan`,`clasico de harina refinada o integral`,600,`./Productos/pan.jpg`),
+    new PRODUCTO(6,`Macarons`,`masa fina de distintos sabores y rellenos`,550,`./Productos/macarons.jpg`),
+    new PRODUCTO(7,`"Libritos"`,`masa ojaldrada,fritos y de grasa`,50,`./Productos/libritos.jpg`),
+    new PRODUCTO(8,`Cookies`,`distintos sabores y masas de chocolate o vainilla,todas glasedas`, 150, `./Productos/galletas.jpg`)
+]
+// funciones
+const contenedorProductos = document.getElementById("contenedorDeProdcutos");
+function agregarCards(PRODUCTOS){
+    PRODUCTOS.forEach(PRODUCTO =>{
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+                            <h2>${PRODUCTO.nombre}</h2>
+                            <img src="${PRODUCTO.imagen}" alt="${PRODUCTO.nombre}">
+                            <p>${PRODUCTO.descripcion}</p>
+                            <p>Precio por Unidad: $${PRODUCTO.precio}</p>
+                            <button>Agregar</button>
+                            `
+    contenedorDeProductos.appendChild(card);
+    })
+}
+agregarCards(PRODUCTOS);
+function ordenarAZ(){
+    PRODUCTOS.sort(
+        function(a,b){
+        const nombreA = a.nombre.toLocaleLowerCase();
+        const nombreB = b.nombre.toLowerCase();
+        if (nombreA < nombreB) {
+            return -1;}
+            if(nombreA > nombreB) {
+                return 1
+                }
+        return 0;
     }
+    )
+}
+function ordenarZA(){
+    PRODUCTOS.sort(
+        function(a,b){
+        const nombreA = a.nombre.toLocaleLowerCase();
+        const nombreB = b.nombre.toLowerCase();
+        if (nombreA > nombreB) {
+            return -1;}
+            if(nombreA < nombreB) {
+                return 1
+                }
+        return 0;
+    }
+    )
+}
+function ordenarPorMayorPrecio(){
+PRODUCTOS.sort(function(a,b){
+    return b.precio - a.precio;
+})
+}
+function ordenarPorMenorPrecio(){
+    PRODUCTOS.sort(function(a,b){
+        return a.precio - b.precio;
+    })
+}
+function agregarAlCarrito(carrito, productoID, cantidad) {
+    const producto = PRODUCTOS.find(item => item.id === productoID);
+    if (producto) {
+        if (carrito.hasOwnProperty(producto.nombre)) {
+            carrito[producto.nombre].cantidad += cantidad;
+            carrito[producto.nombre].precioTotal += cantidad * producto.precio;
+        } else {
+            carrito[producto.nombre] = {
+                precio: producto.precio,
+                cantidad: cantidad,
+                precioTotal: cantidad * producto.precio
+            };
+        }
+        console.log(`Se agregaron ${cantidad} ${producto.nombre}(s) al carrito.`);
+    } else {
+        console.log(`El producto con ID ${productoID} no fue encontrado.`);
+    }
+}
+function quitarDelCarrito(carrito, productoID, cantidad) {
+    const producto = PRODUCTOS.find(item => item.id === productoID);
+    if (producto) {
+        const nombreProducto = producto.nombre;
+        if (carrito.hasOwnProperty(nombreProducto)) {
+            if (cantidad >= carrito[nombreProducto].cantidad) {
+                delete carrito[nombreProducto];
+            } else {
+                carrito[nombreProducto].cantidad -= cantidad;
+                carrito[nombreProducto].precioTotal -= cantidad * carrito[nombreProducto].precio;
+            }
+            console.log(`Se eliminaron ${cantidad} ${nombreProducto}(s) del carrito.`);
+        } else {
+            console.log(`El producto ${nombreProducto} no está en el carrito.`);
+        }
+    } else {
+        console.log(`El producto con ID ${productoID} no fue encontrado.`);
+    }
+}
+function calcularPrecio(carrito) {
+    let precioTotal = 0;
+    for (const producto in carrito) {
+        precioTotal += carrito[producto].precioTotal;
+    }
+    return precioTotal;
+}
+function calcularPrecioTotal(carrito) {
+    let precioTotal = 0;
+    for (const producto in carrito) {
+        precioTotal += carrito[producto].precioTotal;
+    }
+    return precioTotal + precioTotal*0.21;
+}
 
-// en este apartado se ve el precio de los productos
-    let pedido = Number(prompt("para ver los valores y tomar la orden presiona el numero correspondiente: 1:clasico 2:vegetariano 3:premium 4:seguir por el menu"));
-    while(pedido != 4){
-        switch (pedido){
-            case 1:
-                alert("Elegiste la opcion Clasica,su precio es de $1000 + iva");
-                const suma = (a, b) => a + b;
-                const iva = (precioIva) => precioIva * 0.21;
-                const opcion1 = 1000;
-                let precioFinal = suma(opcion1, iva(opcion1));
-                alert (`Precio final a abonar es ${precioFinal}`);
-                orden(cliente);
-                break;
-            case 2:
-                alert("Elegiste la opcion Vegetariana,su precio es de $2000 + iva");
-                const suma2 = (a, b) => a + b;
-                const iva2 = (precioIva) => precioIva * 0.21;
-                const opcion2 = 2000;
-                let precioFinal2 = suma2(opcion2, iva2(opcion2));
-                alert (`Precio final a abonar es ${precioFinal2}`);
-                orden(cliente);
-                break;
-            case 3:
-                alert("Elegiste la opcion Premium,su precio es de $3000 + iva");
-                const suma3 = (a, b) => a + b;
-                const iva3 = (precioIva) => precioIva * 0.21;
-                const opcion3 = 3000;
-                let precioFinal3 = suma3(opcion3, iva3(opcion3));
-                alert (`Precio final a abonar es ${precioFinal3}`);
-                orden(cliente);
-                break;
-            default:
-                alert("opcion incorrecta");
-                break;
-        }
-        pedido = Number(prompt ("para ver los valores y tomar la orden presiona el numero correspondiente: 1:clasico 2:vegetariano 3:premium 4:seguir por el menu"));
-    }
-// si incluye descuento o no
-    let cantidad = Number(prompt(`ingrese la cantidad deseada de menus:(Maximo 7,tenes descuento!)`));
-    while(cantidad != 0){
-        if(cantidad == 7){
-        alert(`Con la compra de 7,tenes un descuento del 10% en el total de la compra`);
-        break;
-    }else if(cantidad <=6){
-        alert(`Tu pedido tiene ${cantidad} menus`);
-        break;
-    }else{
-        alert(`Solo disponemos 7 menus semanales,indica un numero menor a 7`);
-    }
-        cantidad = Number(prompt(`ingrese la cantidad deseada de menus:`));
-    }
-    orden(cliente)
-    alert (`Gracias por comprar con nosotros`);
-    }else{
-    alert("No eres mayor de edad por lo que no puedes entrar a la web");
-    }
+//ejecuciones
+
+let carrito = {};
+//carrito,numero de id,cantidada
+agregarAlCarrito(carrito, 5, 2);
+agregarAlCarrito(carrito, 3, 2);
+agregarAlCarrito(carrito, 5, 3);
+quitarDelCarrito(carrito, 5, 2);
+const precio = calcularPrecio(carrito);
+const precioTotal = calcularPrecioTotal(carrito);
+
+console.log("Carrito actualizado:", carrito);
+console.log("Precio a abonar",precio);
+console.log("Precio con iva agregado",precioTotal);

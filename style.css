@@ -2,11 +2,35 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: cadetblue;
+
 }
 .photo{
     width: 100%;
     height: 500px;
+}
+#contenedorDeProductos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.card{
+    margin: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border: 10px solid;
+    border-color: rgb(175, 189, 252);
+}
+#contenedorDeProductos p{
+    margin: 10px;
+    height: 50px;
+}
+#contenedorDeProductos img{
+    object-fit: cover;
+    height: 250px;
+    width: 300px;
+}
+#contenedorDeProductos button{
+    margin: 10px;
 }
 head h1{
     background-color:black;
