@@ -10,9 +10,7 @@
 </head>
 <body>
     <header>
-        <div>
-            <h1>Tienda de comidas</h1>
-        </div>
+    <h1>Foodstore</h1>
     </header>
     <main>
     <div class="row p-5">
@@ -21,7 +19,6 @@
             </div>
             <div class="col-sm-4">
                 <p>Bienvenido a nuestra panadería, donde el aroma del pan recién horneado te da la bienvenida a un mundo de sabores y tradiciones. En nuestra panadería, cada producto es elaborado con pasión y dedicación, utilizando ingredientes frescos y técnicas artesanales.
-
                     Desde deliciosos panes artesanales hasta exquisitos pasteles y bocadillos, nuestra variedad de productos satisfará todos tus antojos. Nos enorgullece ofrecer calidad y sabor en cada bocado.
                     
                     Ven y descubre el placer de disfrutar de productos horneados con amor y cuidado. ¡Te esperamos en nuestra panadería para compartir momentos dulces y memorables juntos!</p>
@@ -34,7 +31,13 @@
     </main>
     <footer>
         <div><h3>TU PEDIDO</h3></div>
-        <div id="contenedorCarrito"></div>
+        <div class="ordenDeCompra">
+            <div class="carrito">
+                <div id="AgregadosAlCarrito"></div>
+                <p>Total : <span id="total">0</span></p>
+                <button id="btndecomprar"> Confirmar Compra</button>
+            </div>
+        </div>
     </footer>
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

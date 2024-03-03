@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
+
 .photo{
     width: 100%;
     height: 500px;
@@ -35,4 +35,38 @@
 head h1{
     background-color:black;
     color: blue;
+}
+#AgregadosAlCarrito{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border: solid black;
+}
+.itemDeLaLista{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 10px;
+    border: solid red;
+    width: 200px;
+    height: 160px;
+}
+.itemDeLaLista img{
+    width: 100px;
+}
+.ordenDeCompra{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+}
+.carrito{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+}
+#btndecomprar{
+    height: 70px;
+    width: 150px;
 }
