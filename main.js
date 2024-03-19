@@ -1,81 +1,30 @@
-const PRODUCTOS = [
-    {id:1,
-    nombre:`Cupcake`,
-    descripcion:`masa de chocolate o vainilla con crema en la parte superior`,
-    precio:625,
-    imagen:`./Productos/cupcakes.jpg`,
-    miniatura: `./Miniaturas/Cupcakes.jpg`
-},
-    
-    {id:2,
-    nombre:`Tarta de moras`,
-    descripcion:`masa de chocolate glaseada con moras en la parte superior`,
-    precio:1275,
-    imagen:`./Productos/Tarta de moras.jpg`,
-    miniatura: `./Miniaturas/Tarta de moras.jpg`
-},
-    
-    {id:3,
-    nombre:`Rosquillas`,
-    descripcion:`masa de vainilla frita glaseada con distintos sabores`,
-    precio:120,
-    imagen:`./Productos/roscas.jpg`,
-    miniatura: `./Miniaturas/roscas.jpg`
-},
-    
-    {id:4,
-    nombre:`Roll de Canela`,
-    descripcion:`masa con sabor a canela,glaseada y decorada con distintos toppings`,
-    precio:250,
-    imagen:`./Productos/rollos de canela.jpg`,
-    miniatura: `./Miniaturas/rollos de canela.jpg`
-},
-    
-    {id:5,
-    nombre:`Pan`,
-    descripcion:`clasico de harina refinada o integral`,
-    precio:600,
-    imagen:`./Productos/pan.jpg`,
-    miniatura: `./Miniaturas/pan.jpg`
-},
-    
-    {id:6,
-    nombre:`Macarons`,
-    descripcion:`masa fina de distintos sabores y rellenos`,
-    precio:550,
-    imagen:`./Productos/macarons.jpg`,
-    miniatura: `./Miniaturas/macarons.jpg`
-},
-    
-    {id:7,
-    nombre:`"Libritos"`,
-    descripcion:`masa ojaldrada,fritos y de grasa`,
-    precio:50,
-    imagen:`./Productos/libritos.jpg`,
-    miniatura: `./Miniaturas/libritos.jpg`
-},
-    
-    {id:8,
-    nombre:`Cookies`,
-    descripcion:`distintos sabores y masas de chocolate o vainilla,todas glasedas`,
-    precio:150,
-    imagen:`./Productos/galletas.jpg`,
-    miniatura: `./Miniaturas/galletas.jpg`
-}
-]
-// funciones
 const elementosCarrito = JSON.parse(localStorage.getItem('carrito'))||[];
 const contenedorProductos = document.getElementById("contenedorDeProductos");
 const contenedorCarrito = document.getElementById('AgregadosAlCarrito');
 const totalPrecio = document.getElementById('total');
+const ordenamientoSelect = document.getElementById("ordenamiento");
+const resetButton = document.getElementById("resetFiltro");
+const url = "./Productos.json";
+let PRODUCTOS = [];
 
-function agregarCards(){
-    PRODUCTOS.forEach(PRODUCTO =>{
+fetch(url)
+    .then(Response => Response.json())
+    .then((datos)=>{
+        console.log(datos)
+        PRODUCTOS = datos;
+        agregarCards(datos)
+    })
+    .catch(error => console.log(error))
+    .finally(()=> console.log("proceso finalizado"))
+
+function agregarCards(productos = PRODUCTOS){
+    contenedorProductos.innerHTML = "";
+    productos.forEach(PRODUCTO =>{
         const card = document.createElement("div");
         card.classList.add("card");
         card.innerHTML = `
                             <h2>${PRODUCTO.nombre}</h2>
-                            <img src="${PRODUCTO.imagen}" alt="${PRODUCTO.nombre}">
+                            <img src="${PRODUCTO.imagen}" alt="${PRODUCTO.nombre}" class="img-fluid"">
                             <p>${PRODUCTO.descripcion}</p>
                             <p>Precio por Unidad: $${PRODUCTO.precio}</p>
                             <button class="btn" data-id="${PRODUCTO.id}">Agregar</button>
@@ -84,15 +33,66 @@ function agregarCards(){
     })
 }
 
+function ordenarProductos(orden) {
+    const productosOrdenados = [...PRODUCTOS];
+    if (orden === 'ascendente') {
+        productosOrdenados.sort((a, b) => a.precio - b.precio);
+    } else if (orden === 'descendente') {
+        productosOrdenados.sort((a, b) => b.precio - a.precio);
+    }
+    return productosOrdenados;
+}
+
+ordenamientoSelect.addEventListener('change', (event) => {
+    const orden = event.target.value;
+    const productosOrdenados = ordenarProductos(orden);
+    agregarCards(productosOrdenados);
+});
+function resetearFiltro() {
+    agregarCards();
+    ordenamientoSelect.selectedIndex = 0;
+}
+resetButton.addEventListener('click', resetearFiltro);
+
+
+
 function agregarAlCarrito(idPRODUCTO){
     const item = elementosCarrito.find(item => item.id === idPRODUCTO);
     if(item){
-        item.cantidad++
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 690,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+            });
+            Toast.fire({
+            icon: "success",
+            title: "Agregado al carrito"
+            });
+        item.cantidad++;
     }else{
         const producto = PRODUCTOS.find(p => p.id === idPRODUCTO);
         if(producto){
             elementosCarrito.push({...producto, cantidad:1});
         }
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 690,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+            });
+            Toast.fire({
+            icon: "success",
+            title: "Agregado al carrito"
+            });
     }
     guardarCarrito();
     renderizarCarrito();
@@ -120,9 +120,12 @@ function renderizarCarrito() {
         const img = document.createElement('img');
             img.src = `${item.miniatura}`;
             div.classList.add('itemDeLaLista');
+            p.classList.add('textoIntro');
             p.textContent = `${item.nombre} x ${item.cantidad}
             $${item.precio * item.cantidad}`
             const btnEliminar = document.createElement('button');
+            btnEliminar.classList.add('btn');
+            btnEliminar.classList.add('textoIntro');
             btnEliminar.textContent = 'Eliminar';
             btnEliminar.addEventListener('click', () => eliminarDelCarrito(item.id))
             contenedorCarrito.appendChild(div);
@@ -137,7 +140,16 @@ function renderizarCarrito() {
 renderizarCarrito();
 
 function realizarCompra(){
-    alert(`El total de su compra es de $${totalPrecio.textContent}`);
+    const { value: email } = Swal.fire({
+        title: `Total $${totalPrecio.textContent}`,
+        input: "email",
+        inputLabel: "Ingrese un correo para el envio",
+        inputPlaceholder: "Ej:correo@gmail.com"
+        });
+        if (email) {
+        Swal.fire(`Entered email: ${email}`);
+        }
+    
     elementosCarrito.length = 0;
     renderizarCarrito();
 }
@@ -150,5 +162,22 @@ contenedorProductos.addEventListener('click',function(evento){
         agregarAlCarrito(idProducto);
     }
 });
+const toggleCarritoButton = document.getElementById("toggleCarrito");
+const carrito = document.getElementById("carritoContenedor");
 
-agregarCards(PRODUCTOS);
+toggleCarritoButton.addEventListener("click", () => {
+    carrito.classList.toggle("carrito-visible");
+});
+
+
+const slides = document.querySelector('.slides');
+const slide = document.querySelectorAll('.slide');
+
+let index = 1;
+let interval = setInterval(() => {
+    index++;
+    if (index === slide.length) {
+        index = 0;
+    }
+    slides.style.transform = `translateX(${-index * 100}%)`;
+}, 4000);

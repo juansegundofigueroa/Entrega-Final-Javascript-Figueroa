@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Madimi+One&family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  background-color: #F2D6A2 !important;
+}
+
+body {
+  background-color: #F2F2F2;
+}
+
+.promo {
+  color: #F2F2F2;
+  font-size: 70px;
+  font-family: "Madimi One";
+}
+
+.titulo {
+  font-family: "Madimi One";
+  font-size: 43px;
+}
+
+.textoIntro {
+  font-family: "EB Garamond";
+  font-size: 20px;
+}
+
+.contenedor {
+  max-width: auto;
+  height: 300px;
+  margin: 20px auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+  height: 300px;
+}
+
+.slide {
+  min-width: 100%;
+  overflow: hidden;
+  height: 300px;
+  position: relative;
+  display: inline-block;
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  height: 300px;
+  display: block;
+  object-fit: cover;
+  background-image: url(/ImagenesPublicidad/publi1.jpg);
+}
+.slide div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  padding: 10px;
+}
+
+.foto1 {
+  width: 100%;
+  height: 300px;
+  display: block;
+  object-fit: cover;
+  background-image: url(/ImagenesPublicidad/publi1.jpg);
+}
+
+.foto {
+  width: 700px;
+  height: 400px;
+  border-radius: 10px 100px/120px;
+  border: 20px solid #F2D6A2;
+}
+
+#contenedorDeProductos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.card {
+  background-color: #F2D6A2;
+  margin: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 7px 5px 5px black;
+  border: 1px solid black;
+  font-family: "EB Garamond";
+  font-size: 22px;
+}
+.card h2 {
+  font-family: "Madimi One";
+  font-size: 40px;
+}
+.card img {
+  border-radius: 20px;
+}
+
+#contenedorDeProductos p {
+  margin: 10px;
+  height: 50px;
+}
+#contenedorDeProductos img {
+  object-fit: cover;
+  height: 250px;
+  width: 300px;
+}
+#contenedorDeProductos button {
+  margin: 10px;
+}
+
+.btn {
+  background-color: #F29F05;
+  color: #F2F2F2;
+  padding: 5px;
+}
+.btn:hover {
+  background-color: #593527;
+}
+
+#AgregadosAlCarrito {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.itemDeLaLista {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 10px;
+  width: 220px;
+  height: 220px;
+}
+.itemDeLaLista img {
+  width: 100px;
+}
+
+.ordenDeCompra {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto;
+}
+
+.carrito {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+}
+
+#btndecomprar {
+  width: 150px;
+  font-family: "Madimi One";
+  font-size: 40px;
+}
+
+#carritoContenedor {
+  display: none;
+  position: fixed;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #F2F2F2;
+  border: 10px solid #F29F05;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.carrito-visible {
+  display: block !important;
+}
+
+.carrito-hidden {
+  display: none;
+}
+
+.botonanclado {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 9999;
+}
+
+/*# sourceMappingURL=style.css.map */

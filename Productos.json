@@ -1,0 +1,65 @@
+[
+    {"id":1,
+    "nombre":"Cupcake",
+    "descripcion":"Masa de chocolate o vainilla con crema en la parte superior",
+    "precio":625,
+    "imagen":"./Productos/cupcakes.jpg",
+    "miniatura": "./Miniaturas/Cupcakes.jpg"
+},
+    
+    {"id":2,
+    "nombre":"Tarta de moras",
+    "descripcion":"Masa de chocolate glaseada con moras en la parte superior",
+    "precio":1275,
+    "imagen":"./Productos/Tarta de moras.jpg",
+    "miniatura":"./Miniaturas/Tarta de moras.jpg"
+},
+    
+    {"id":3,
+    "nombre":"Rosquillas",
+    "descripcion":"Masa de vainilla frita glaseada con distintos sabores",
+    "precio":120,
+    "imagen":"./Productos/roscas.jpg",
+    "miniatura": "./Miniaturas/roscas.jpg"
+},
+    
+    {"id":4,
+    "nombre":"Roll de Canela",
+    "descripcion":"Masa con sabor a canela,glaseada y decorada con distintos toppings",
+    "precio":250,
+    "imagen":"./Productos/rollos de canela.jpg",
+    "miniatura": "./Miniaturas/rollos de canela.jpg"
+},
+    
+    {"id":5,
+    "nombre":"Pan",
+    "descripcion":"Clasico de harina refinada o integral",
+    "precio":600,
+    "imagen":"./Productos/pan.jpg",
+    "miniatura": "./Miniaturas/pan.jpg"
+},
+    
+    {"id":6,
+    "nombre":"Macarons",
+    "descripcion":"Masa fina de distintos sabores y rellenos",
+    "precio":550,
+    "imagen":"./Productos/macarons.jpg",
+    "miniatura": "./Miniaturas/macarons.jpg"
+},
+    
+    {"id":7,
+    "nombre":"Libritos",
+    "descripcion":"Masa ojaldrada,fritos y de grasa",
+    "precio":50,
+    "imagen":"./Productos/libritos.jpg",
+    "miniatura": "./Miniaturas/libritos.jpg"
+},
+    
+    {"id":8,
+    "nombre":"Cookies",
+    "descripcion":"Distintos sabores y masas de chocolate o vainilla,todas glasedas",
+    "precio":150,
+    "imagen":"./Productos/galletas.jpg",
+    "miniatura": "./Miniaturas/galletas.jpg"
+}
+]
