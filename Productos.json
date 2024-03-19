@@ -3,7 +3,7 @@
     "nombre":"Cupcake",
     "descripcion":"Masa de chocolate o vainilla con crema en la parte superior",
     "precio":625,
-    "imagen":"./Productos/cupcakes.jpg",
+    "imagen":"./Productos/Cupcakes.jpg",
     "miniatura": "./Miniaturas/Cupcakes.jpg"
 },
     
