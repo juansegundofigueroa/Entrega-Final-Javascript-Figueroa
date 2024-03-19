@@ -143,13 +143,12 @@ function realizarCompra(){
     const { value: email } = Swal.fire({
         title: `Total $${totalPrecio.textContent}`,
         input: "email",
-        inputLabel: "Ingrese un correo para el envio",
+        inputLabel: "Ingrese un correo,se enviará un link de pago y la factura",
         inputPlaceholder: "Ej:correo@gmail.com"
         });
         if (email) {
-        Swal.fire(`Entered email: ${email}`);
+        Swal.fire(`Email ingresado: ${email}`);
         }
-    
     elementosCarrito.length = 0;
     renderizarCarrito();
 }
