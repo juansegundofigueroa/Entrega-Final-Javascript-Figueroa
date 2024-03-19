@@ -74,7 +74,7 @@ body {
   height: 300px;
   display: block;
   object-fit: cover;
-  background-image: url(/ImagenesPublicidad/publi1.jpg);
+  background-image: url(../ImagenesPublicidad/publi1.jpg);
 }
 
 .foto {
